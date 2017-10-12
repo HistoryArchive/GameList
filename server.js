@@ -18,8 +18,37 @@ app.use(function(req, res, next) {
 /************
  * DATABASE *
  ************/
+ var personalProfile = {
+  name: 'Juhui(Ray) Xue',
+  githubLink: 'https://github.com/xuejuhui',
+  personalSiteLink: 'https://xuejuhui.github.io/',
+  currentCity: 'San Francisco'
+ }
 
-// var db = require('./models');
+ var games = [
+ {
+  name: 'League of Legend',
+  type: 'Moba',
+  timeSpend: 1312
+},
+{
+  name: 'DarkSoul',
+  type: 'ARPG',
+  timeSpend: 120
+},
+{
+  name: 'Clash of Royale',
+  type: 'Mobile Strategy',
+  timeSpend: 200
+},
+{
+  name: 'Candy Crush Saga',
+  type: 'Mobile Puzzle',
+  timeSpend: 100
+}
+]
+
+var db = require('./models');
 
 /**********
  * ROUTES *
@@ -57,6 +86,23 @@ app.get('/api', function apiIndex(req, res) {
     ]
   })
 });
+
+app.get('/api/profile', function(req, res){
+  res.json({profile: personalProfile});
+  console.log(personalProfile);
+});
+
+app.get('/api/games',function(req, res){
+  res.json({Games: games});
+});
+
+app.post('/api/games', function(req, res){
+     let name = req.body.name;
+       let type = req.body.type;
+    var newGames = {name: name, type: type};
+    todos.push(newGames);
+    res.json(newGames);
+})
 
 /**********
  * SERVER *
